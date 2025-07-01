@@ -1,0 +1,105 @@
+import java.io.*;
+import java.util.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.toList;
+
+class Result {
+
+    /*
+     * Complete the 'miniMaxSum' function below.
+     *
+     * The function accepts INTEGER_ARRAY arr as parameter.
+     */
+
+    public static void miniMaxSum(List<Integer> arr) {
+       /*  SOLUTION FIRST- wrong
+   
+        int t1=arr.get(1)+arr.get(2)+arr.get(3)+arr.get(4);
+        int t2=arr.get(0)+arr.get(2)+arr.get(3)+arr.get(4);
+        int t3=arr.get(0)+arr.get(1)+arr.get(3)+arr.get(4);
+        int t4=arr.get(0)+arr.get(1)+arr.get(2)+arr.get(4);
+        int t5=arr.get(0)+arr.get(1)+arr.get(2)+arr.get(3);
+       
+        int max = t1;
+        int min = t1;
+
+        if (t2 > max) max = t2;
+        if (t3 > max) max = t3;
+        if (t4 > max) max = t4;
+        if (t5 > max) max = t5;
+
+        if (t2 < min) min = t2;
+        if (t3 < min) min = t3;
+        if (t4 < min) min = t4;
+        if (t5 < min) min = t5;
+        System.out.println(min + " " + max);
+        
+        //USING ARRRAYLIST
+        //List<Integer> sums=Arrays.asList(t1, t2, t3, t4, t5);
+        //int maxt=Collections.max(sums);
+        //int mint=Collections.min(sums);
+        //System.out.println(mint + " " + maxt);
+        
+        */
+        
+        
+        
+  /*
+        //SECOND SOLUTION - wrong
+        ArrayList<Integer> arrys=new ArrayList<>();
+        for(int i=0;i<arr.size();i++){
+            int sum=0;
+            for(int j=0;j<arr.size();j++){
+                if(j!=i){
+                    sum+=arr.get(j);
+                }
+            }
+            arrys.add(sum);
+        }
+      
+        int maxt=Collections.max(arrys);
+        int mint=Collections.min(arrys);
+        
+        System.out.println(mint + " " + maxt);
+      */
+      
+    
+    
+     long totalSum = 0;
+    int min = arr.get(0);
+    int max = arr.get(0);
+
+    for (int num : arr) {
+        totalSum += num;
+
+        if (num < min) {
+            min = num;
+        }
+
+        if (num > max) {
+            max = num;
+        }
+    }
+
+    long minSum = totalSum - max;
+    long maxSum = totalSum - min;
+
+    System.out.println(minSum + " " + maxSum);
+
+    }
+
+}
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+
+        List<Integer> arr = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
+            .map(Integer::parseInt)
+            .collect(toList());
+
+        Result.miniMaxSum(arr);
+
+        bufferedReader.close();
+    }
+}
