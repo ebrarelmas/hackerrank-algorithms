@@ -1,0 +1,58 @@
+import java.io.*;
+import java.util.*;
+
+
+public class Solution {
+    Stack<Integer> stacknewest= new Stack<>();
+    Stack<Integer>stackoldest = new Stack<>();
+    public void enqueue(int x){
+        stacknewest.push(x);
+        
+    }
+    public void shiftblocks(){
+        if (stackoldest.isEmpty()) {
+        while (!stacknewest.isEmpty()) {
+            stackoldest.push(stacknewest.pop());
+        }
+    }
+    }
+    public void dequeue(){
+        shiftblocks();
+        if(!stackoldest.isEmpty()){
+            stackoldest.pop();
+        }
+    }
+    
+    public int peek(){
+        
+        shiftblocks();
+        if(!stackoldest.isEmpty()){
+            return stackoldest.peek();
+            
+        }
+        return -1;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc= new Scanner(System.in);
+        int q= sc.nextInt();
+        Solution queue = new Solution();
+
+        
+    while (q-- > 0) {
+        int type = sc.nextInt();
+        switch (type) {
+            case 1:
+                int value = sc.nextInt();
+                queue.enqueue(value);
+                break;
+            case 2:
+                queue.dequeue();
+                break;
+            case 3:
+                System.out.println(queue.peek());
+                break;
+        }
+    }
+    }
+}

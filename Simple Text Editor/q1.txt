@@ -1,0 +1,45 @@
+import java.io.*;
+import java.util.*;
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int q = sc.nextInt(); 
+        sc.nextLine(); 
+
+        StringBuilder currentText = new StringBuilder();
+        Stack<String> history = new Stack<>();
+
+        for (int i = 0; i < q; i++) {
+            String[] input = sc.nextLine().split(" ");
+            int command = Integer.parseInt(input[0]);
+
+            switch (command) {
+                case 1:
+                    // append
+                    history.push(currentText.toString()); 
+                    currentText.append(input[1]);
+                    break;
+
+                case 2:
+                    // delete
+                    int k = Integer.parseInt(input[1]);
+                    history.push(currentText.toString()); 
+                    currentText.delete(currentText.length() - k, currentText.length());
+                    break;
+
+                case 3:
+                    // print
+                    int pos = Integer.parseInt(input[1]);
+                    System.out.println(currentText.charAt(pos - 1)); 
+                    break;
+
+                case 4:
+                    // undo
+                    if (!history.isEmpty()) {
+                        currentText = new StringBuilder(history.pop());
+                    }
+                    break;
+            }
+        }
+    }
+}
